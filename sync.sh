@@ -4,8 +4,7 @@
 
 echo "> sync.sh"
 
-REMOTE=frameportal
-SRC_DIR=./photos/src
+bash ./set_vars.sh
 
 sudo wg-quick up proton >/dev/null
 [[ $? -eq 0 || $? -eq 1 ]] || { echo "Error: couldn't establish connection"; exit 1; }
