@@ -1,14 +1,17 @@
 # Slideshow
 
+import sys
 import os
 from datetime import datetime, timedelta
 from random import random
 import shutil
 import time
 
+print('> slideshow')
+
 src_dir = './photos/src'
 active_dir = './photos/active'
-active_photo_interval = 5
+active_photo_interval = int(sys.argv[1]) if len(sys.argv) > 1 else 5
 
 valid_exts = ['.' + e for e in ['jpg', 'jpeg', 'png']]
 
@@ -93,7 +96,7 @@ time_next = datetime.now()
 while True:
     time_next = time_next + timedelta(seconds=active_photo_interval)
     active_photos.insert(0, get_image())
-    print('/'.join(''.join(active_photos[0].split('.')[:-1]).split('/')[-2:]))
+    print('> slideshow: photo: ' + '/'.join(''.join(active_photos[0].split('.')[:-1]).split('/')[-2:]))
     shutil.copy(active_photos[0], active_dir)
 
     old_photos = [os.path.join(active_dir, p.split('/')[-1]) for p in active_photos[active_photos_max:]]
