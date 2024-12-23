@@ -1,19 +1,21 @@
 [Unit]
 Description=Starts photo frame slideshow
-Wants=graphical.target
-Wants=network-online.target
-After=graphical.target
+Requires=graphical.target
 After=network-online.target
 
 [Service]
 Environment=PHOTOFRAME=/home/pi/Pictures/frame
 DISPLAY=:0
 User=pi
-Type=simple
+Type=idle
+
 ExecStart=/usr/local/bin/photoframe.sh
+Environment=PHOTOFRAME=/home/pi/Pictures/frame
+DISPLAY=:0
+User=pi
+
 Restart=on-failure
 RestartSec=10
 
 [Install]
-WantedBy=multi-user.target
 WantedBy=graphical.target
