@@ -40,3 +40,5 @@ do
     [[ -z "$(ls "$SRC_DIR/$member")" ]] && rm -rf $SRC_DIR/$member
 done
 
+exit 0
+

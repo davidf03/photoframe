@@ -14,15 +14,16 @@ valid_exts = ['.' + e for e in ['jpg', 'jpeg', 'png']]
 
 photos = [[f.path for f in os.scandir(d.path) if f.is_file and os.path.splitext(f.path)[-1] in valid_exts] for d in os.scandir(src_dir) if d.is_dir()]
 photos = [p for p in photos if len(p)]
+total_members = len(photos)
 total_photos = sum(len(p) for p in photos)
 
 members = [
     {
         'prob': [
-            i/len(photos)
-            , (i + 1)/len(photos)
+            i/total_members
+            , (i + 1)/total_members
         ]
-        , 'bias': 1 - (len(photos[i])/total_photos - (len(photos[i])/total_photos - 1/len(photos))/(2*len(photos)))
+        , 'bias': 1 - (len(photos[i])/total_photos - (len(photos[i])/total_photos - 1/total_members)*((total_members - 1)/total_members)**total_members)
         , 'photos': [
             {
                 'prob': [
