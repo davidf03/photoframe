@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Sync photos
+# Note: override abusive sync prevention with parameter $1 = 1
 
 echo "> sync.sh"
 
@@ -11,6 +12,15 @@ sudo wg-quick up proton >/dev/null 2>&1
 [[ $(sudo wg | wc -c) -eq 0 ]] && { echo "Error: something wrong with connection"; exit 2; }
 
 echo "  connected"
+
+exec_date="$(date '+%Y-%m-%d')"
+if [[ $1 -ne 1 && -f ./.last_sync && "$exec_date" -eq "$(cat ./.last_sync)" ]]
+then
+    echo "  sync too recent"
+    exit 0
+else
+    echo "$exec_date" > ./.last_sync
+fi
 
 # get members
 declare -a MEMBERS=()
