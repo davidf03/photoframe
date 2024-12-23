@@ -2,7 +2,9 @@
 
 # Entry/startup
 
-. ./set_vars.sh
+cd /home/pi/Pictures/frame
+
+sudo . ./set_vars.sh
 
 bash ./sync.sh
 [[ $? -eq 1 || $? -eq 2 ]] && exit 1
