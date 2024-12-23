@@ -10,6 +10,8 @@ sudo wg-quick up proton >/dev/null 2>&1
 [[ $? -eq 0 || $? -eq 1 ]] || { echo "Error: couldn't establish connection"; exit 1; }
 [[ $(sudo wg | wc -c) -eq 0 ]] && { echo "Error: something wrong with connection"; exit 2; }
 
+echo "  connected"
+
 # get members
 declare -a MEMBERS=()
 MEMBERS=$(rclone lsd "$REMOTE": | grep -o '\S\+$')
@@ -36,7 +38,7 @@ for member in ${MEMBERS[@]}
 do
     mkdir -p "$SRC_DIR/$member"
     rclone sync "$REMOTE:$member" "$SRC_DIR/$member"
-    [[ $? -eq 0 ]] && echo "Sync'd: $member" || echo "Error: sync failed for member: $member"
+    [[ $? -eq 0 ]] && echo "  sync'd: $member" || echo "Error: sync failed for member: $member"
     [[ -z "$(ls "$SRC_DIR/$member")" ]] && rm -rf $SRC_DIR/$member
 done
 
