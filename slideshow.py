@@ -60,7 +60,7 @@ def get_image():
             standing_prob = m['prob'][1] - m['prob'][0]
             prob_stake = standing_prob/total_standing_prob
             m['prob'][0] = 0 if i == 0 else members[i - 1]['prob'][1]
-            m['prob'][1] = 1 if i + 1 == len(members) else m['prob'][0] + standing_prob + (freed_prob*prob_stake if i != midx else -freed_prob)
+            m['prob'][1] = 1 if i + 1 == len(members) else m['prob'][0] + standing_prob + (freed_prob * prob_stake if i != midx else -freed_prob)
 
     # for i,m in enumerate(members): print(str(i + 1) + ': ' + str(round((m['prob'][1] - m['prob'][0])*1000)/10) + '%')
 
@@ -101,7 +101,7 @@ while True:
 
     old_photos = [os.path.join(active_dir, p.split('/')[-1]) for p in active_photos[active_photos_max:]]
     for p in old_photos: os.remove(p)
-    active_photos = active_photos[0:active_photos_max]
+    active_photos = active_photos[:active_photos_max]
 
     while datetime.now() < time_next:
         time.sleep(1)
