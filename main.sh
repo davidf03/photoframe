@@ -4,14 +4,13 @@
 
 . ./set_vars.sh
 
-SYNC_INTERVAL=$(( 24 * 60 * 60 ))
-
 while true
 do
     echo "> main: new cycle"
-    python ./slideshow.py $ACTIVE_INTERVAL &
+    python ./slideshow.py $SRC_DIR $ACTIVE_DIR $ACTIVE_INTERVAL &
+    sspid=$!
     sleep $SYNC_INTERVAL
-    kill $!
+    kill $sspid
     bash ./sync.sh
 done
 

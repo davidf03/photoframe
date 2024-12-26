@@ -3,7 +3,8 @@
 # Set vars
 
 export REMOTE="frameportal"
-export ACTIVE_DIR="./photos/active"
 export SRC_DIR="./photos/src"
-export ACTIVE_INTERVAL=48
+export ACTIVE_DIR="./photos/active"
+export ACTIVE_INTERVAL=36
+export SYNC_INTERVAL=$(( 24 * 60 * 60 ))
 

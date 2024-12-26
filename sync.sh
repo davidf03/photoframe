@@ -8,19 +8,19 @@ echo "> sync.sh"
 . ./set_vars.sh
 
 # vpn
-sudo wg-quick up proton >/dev/null 2>&1
+sudo wg-quick up proton >/dev/null 2>/dev/null
 [[ $? -eq 0 || $? -eq 1 ]] || { echo "  error: couldn't establish connection"; exit 1; }
 [[ $(sudo wg | wc -c) -eq 0 ]] && { echo "  error: something wrong with connection"; exit 2; }
 echo "  connected"
 
 # abusive traffic-flag safeguard
-exec_date="$(date '+%Y-%m-%d')"
-if [[ $1 -ne 1 && -f ./.last_sync && "$exec_date" -eq "$(cat ./.last_sync)" ]]
+exec_date="$(date '+%s')"
+if [[ $1 -eq 1 || ! -f ./.last_sync || $exec_date -gt $(($(cat ./.last_sync) + $SYNC_INTERVAL)) ]]
 then
+    echo "$exec_date" > ./.last_sync
+else
     echo "  sync too recent"
     exit 0
-else
-    echo "$exec_date" > ./.last_sync
 fi
 
 # get members

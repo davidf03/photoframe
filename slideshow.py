@@ -4,14 +4,18 @@ import sys
 import os
 from datetime import datetime, timedelta
 from random import random
+from pathlib import Path
 import shutil
 import time
 
 print('> slideshow')
 
-src_dir = './photos/src'
-active_dir = './photos/active'
-active_photo_interval = int(sys.argv[1]) if len(sys.argv) > 1 else 5
+src_dir = sys.argv[1] if len(sys.argv) > 1 else None
+if src_dir is None or not os.path.isdir(sys.argv[2]):
+    print('  invalid src dir; image selection paused')
+    sys.exit(1)
+active_dir = sys.argv[2] if len(sys.argv) > 2 else './photos/active'
+active_photo_interval = int(sys.argv[3]) if len(sys.argv) > 3 else 5
 
 valid_exts = ['.' + e for e in ['jpg', 'jpeg', 'png']]
 
@@ -39,19 +43,10 @@ members = [
     } for i in range(0, len(photos))
 ]
 
-# print()
-# print()
-# for i,m in enumerate(members): print(str(i + 1) + ': ' + str(round((m['prob'][1] - m['prob'][0])*1000)/10) + '%')
-# print()
-# for i,m in enumerate(members): print(str(i + 1) + ': ' + str(len(m['photos'])) + ' => ' + str(m['bias']))
-
 def get_image():
-    # print()
-    # print()
     mrand = random()
     midx = next(i for i,m in enumerate(members) if m['prob'][0] <= mrand < m['prob'][1])
     member = members[midx]
-    # print('member: ' + str(midx + 1))
 
     if len(members) > 1:
         freed_prob = (member['prob'][1] - member['prob'][0]) * member['bias']
@@ -62,14 +57,10 @@ def get_image():
             m['prob'][0] = 0 if i == 0 else members[i - 1]['prob'][1]
             m['prob'][1] = 1 if i + 1 == len(members) else m['prob'][0] + standing_prob + (freed_prob * prob_stake if i != midx else -freed_prob)
 
-    # for i,m in enumerate(members): print(str(i + 1) + ': ' + str(round((m['prob'][1] - m['prob'][0])*1000)/10) + '%')
-
-    # print()
     photos = member['photos']
     prand = random()
     pidx = next(i for i,p in enumerate(photos) if p['prob'][0] <= prand < p['prob'][1])
     photo = photos[pidx]
-    # print('photo: ' + str(pidx + 1))
 
     if len(photos) > 1:
         total_freed_prob = photo['prob'][1] - photo['prob'][0]
@@ -79,9 +70,6 @@ def get_image():
             p['prob'][0] = 0 if i == 0 else photos[i - 1]['prob'][1]
             p['prob'][1] = 1 if i + 1 == len(photos) else p['prob'][0] + standing_prob + (freed_prob if i != pidx else -total_freed_prob)
     
-    # print(photo['path'])
-    # for i,p in enumerate(photos): print(str(i + 1) + ': ' + str(round((p['prob'][1] - p['prob'][0])*1000)/10) + '%')
-
     return photo['path']
 
 
@@ -90,7 +78,7 @@ active_photos = []
 if os.path.isdir(active_dir):
     active_photos = [f.path for f in os.scandir(active_dir) if f.is_file]
 else:
-    os.mkdir(active_dir)
+    Path(active_dir).mkdir(parents=True)
 
 time_next = datetime.now()
 while True:
