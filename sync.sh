@@ -8,7 +8,7 @@ echo "> sync.sh"
 . ./set_vars.sh
 
 # vpn
-sudo wg-quick up proton >/dev/null 2>/dev/null
+sudo wg-quick up "$VPN" >/dev/null 2>/dev/null
 [[ $? -eq 0 || $? -eq 1 ]] || { echo "  error: couldn't establish connection"; exit 1; }
 [[ $(sudo wg | wc -c) -eq 0 ]] && { echo "  error: something wrong with connection"; exit 2; }
 echo "  connected"

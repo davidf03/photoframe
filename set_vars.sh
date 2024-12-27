@@ -2,6 +2,7 @@
 
 # Set vars
 
+export VPN="proton"
 export REMOTE="frameportal"
 export SRC_DIR="./photos/src"
 export ACTIVE_DIR="./photos/active"
