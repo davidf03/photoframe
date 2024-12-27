@@ -14,10 +14,10 @@ sudo wg-quick up proton >/dev/null 2>/dev/null
 echo "  connected"
 
 # abusive traffic-flag safeguard
-exec_date="$(date '+%s')"
-if [[ $1 -eq 1 || ! -f ./.last_sync || $exec_date -gt $(($(cat ./.last_sync) + $SYNC_INTERVAL)) ]]
+exec_date=$(date '+%s')
+if [[ $1 -eq 1 || ! -f ./.last_sync || $exec_date -gt $(( $(cat ./.last_sync) + $SYNC_INTERVAL )) ]]
 then
-    echo "$exec_date" > ./.last_sync
+    echo $exec_date > ./.last_sync
 else
     echo "  sync too recent"
     exit 0
