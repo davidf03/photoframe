@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
-# Set vars
+# Config
 
-export VPN="proton"
-export REMOTE="frameportal"
+export BYPASS_VPN=false
+export VPN=""
+
+export REMOTE=""
+export SYNC_INTERVAL=$(( 24 * 60 * 60 ))
+
 export SRC_DIR="./photos/src"
 export ACTIVE_DIR="./photos/active"
 export ACTIVE_INTERVAL=36
-export SYNC_INTERVAL=$(( 24 * 60 * 60 ))
 

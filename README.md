@@ -10,9 +10,20 @@
 - the python script puts images into an 'active' folder at the same rate that the `feh` slideshow cycles, and the `feh` command, which is run only once, continually rescans the directory at the same rate in turn
 - the result isn't much to speak of, but at any rate works
 ## dependencies
-- `feh` for the actual slideshow
-- `rclone` & config for cloud drive access (name of config assigned to `$REMOTE` env var in `./set_vars.sh`)
-- `wireguard` & config for your vpn, if desired (otherwise remove vpn lines from `./sync.sh`; name of config assigned to `$VPN` env var in `./set_vars.sh`)
-    - `openresolv` pkg was missing for me and needed to be installed, per https://askubuntu.com/a/1464069
-- certain system files (for various purposes) to be optionally installed/modified per `./system_files/README.md`
+### slideshow
+- `feh`
+### cloud drive
+- `rclone` & config
+    - name of config assigned to `$REMOTE` env var in `./config.sh`
+### vpn (optional)
+- `wireguard` & config
+    - name of config assigned to `$VPN` env var in `./config.sh`
+    - can permanently override requirement (`$BYPASS_VPN=true` in `./config.sh`) or else be prompted each execution whether to continue without one
+    - `openresolv` pkg was missing on my raspberry pi and needed to be installed, per https://askubuntu.com/a/1464069
+### system files (optional)
+- certain system files (for various purposes) to be optionally installed/modified
+- more information on these in `./system_files/README.md`
+## configuration
+- make a copy of `./config.sh.example` and rename it to exclude the `.example` suffix -> `./config.sh`
+- of the variables which are unset, be sure to include at least a name for the `rclone` config in `$REMOTE`
 

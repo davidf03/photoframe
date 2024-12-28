@@ -8,6 +8,6 @@ cd /home/pi/Pictures/frame
 
 # git pull --rebase origin main >/dev/null 2>/dev/null
 
-bash ./photoframe.sh
+bash ./main/main.sh
 exit $?
 
