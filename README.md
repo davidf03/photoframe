@@ -6,8 +6,9 @@
 - and because I wanted to normalise the representation of members of my family in the slideshow, who would contribute in different quantities, to make sure those who did little would still be seen, which didn't seem possible without something more custom
 ## how
 - `feh` was the only utility I could get this to work with; so there are no transitions
-- a python script (`./slideshow.py`) selects a member and then a photo from their directory, and redistributes the probability at each level to make it less likely to be selected the next time, until the probability of others, on their selection, is redistributed back: directories have a bias (only a certain amount is removed, less while the member has more photos) and the probability is redistributed according to the existing probabilities where it is given, which, combined, skew/normalise representation; photos do not have any bias, and their probability is entirely redistributed each time and equally across all other photos (within the member directory)
+- a python script (`./slideshow.py`) selects a member and then a photo from their directory, and redistributes the probability at each level to make it less likely to be selected the next time, until the probability of others, on their selection, is redistributed back: directories have a bias (only a certain amount is removed, less while the member has more photos) and the probability is redistributed to the others with respect to the relative proportion of each, which two things combined skew/normalise representation; photos do not have any bias, and their probability is entirely redistributed each time and equally across all other photos within the member directory
 - the python script puts images into an 'active' folder at the same rate that the `feh` slideshow cycles, and the `feh` command, which is run only once, continually rescans the directory at the same rate in turn
+- the result isn't much to speak of, but at any rate works
 ## dependencies
 - `feh` for the actual slideshow
 - `rclone` & config for cloud drive access (name of config assigned to `$REMOTE` env var in `./set_vars.sh`)
