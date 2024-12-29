@@ -6,7 +6,6 @@ echo "> main"
 
 . ./vars/set_vars.sh
 
-sync_res=""
 bash ./main/sync.sh
 sync_res=$?
 [[ $sync_res -eq 10 ]] && exit 0
