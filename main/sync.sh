@@ -50,9 +50,10 @@ fi
 # get members
 declare -a members=()
 members=$(rclone lsd "$REMOTE": | grep -o '\S\+$')
+member_get_status=$?
 if [[ ${#members[@]} -eq 0 ]]
 then
-    [[ $? -ne 0 ]] && { echo "  error: failed to get members"; exit 20; }
+    [[ $member_get_status -ne 0 ]] && { echo "  error: failed to get members"; exit 20; }
     rm -rf "$SRC_DIR"/* && { echo "  error: no members"; exit 21; }
     echo "  error: no members; failed while removing local src"
     exit 22
