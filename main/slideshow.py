@@ -17,9 +17,9 @@ if src_dir is None or not os.path.isdir(sys.argv[2]):
 active_dir = sys.argv[2] if len(sys.argv) > 2 else './photos/active'
 active_photo_interval = int(sys.argv[3]) if len(sys.argv) > 3 else 5
 
-valid_exts = ['.' + e for e in ['jpg', 'jpeg', 'png']]
+valid_exts = ['.' + e for e in ['jpg', 'jpeg', 'png', 'webp']]
 
-photos = [[f.path for f in os.scandir(d.path) if f.is_file and os.path.splitext(f.path)[-1] in valid_exts] for d in os.scandir(src_dir) if d.is_dir()]
+photos = [[f.path for f in os.scandir(d.path) if f.is_file and (not len(valid_exts) or os.path.splitext(f.path)[-1] in valid_exts)] for d in os.scandir(src_dir) if d.is_dir()]
 photos = [p for p in photos if len(p)]
 total_members = len(photos)
 total_photos = sum(len(p) for p in photos)
