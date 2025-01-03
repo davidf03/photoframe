@@ -24,6 +24,10 @@
 - certain system files (for various purposes) to be optionally installed/modified
 - more information on these in `./system_files/README.md`
 ## configuration
-- make a copy of `./config.sh.example` and rename it to exclude the `.example` suffix -> `./config.sh`
-- of the variables which are unset, be sure to include at least a name for the `rclone` config in `$REMOTE`
+- `./config.sh`
+    - make a copy of `./config.sh.example` and rename it to exclude the `.example` suffix -> `./config.sh`
+    - of the variables which are unset, be sure to include at least a name for the `rclone` config in `$REMOTE`
+- `./extensions` (optional)
+    - make a copy of `./extensions.example` and rename it to exclude the `.example` suffix -> `./extensions`
+    - add only extensions to be included; otherwise delete or leave empty
 
