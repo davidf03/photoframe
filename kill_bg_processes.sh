@@ -2,7 +2,7 @@
 
 # Kill/clean up background process ids
 
-echo "> kill extant background processes"
+echo "> ./kill_bg_processes.sh"
 
 pkill -f -TERM "main/slideshow.py"
 pkill -f -TERM "main/cycle.sh"

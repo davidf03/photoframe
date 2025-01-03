@@ -4,7 +4,7 @@
 
 if [[ $VARS_SET != true ]]
 then
-    echo "> set vars"
+    echo "> ./vars/set_vars.sh"
 
     [[ ! -f './config.sh' ]] && { echo "!> ./config.sh does not exist; please create one based on ./config.sh.example"; exit 1; }
     . ./config.sh

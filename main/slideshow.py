@@ -8,7 +8,7 @@ from pathlib import Path
 import shutil
 import time
 
-print('> slideshow')
+print('> ./main/slideshow.py')
 
 src_dir = sys.argv[1] if len(sys.argv) > 1 else None
 if src_dir is None or not os.path.isdir(sys.argv[2]):

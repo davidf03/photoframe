@@ -2,7 +2,7 @@
 
 # Entry/startup
 
-echo "> entry"
+echo "> ./entry.sh"
 
 cd /home/pi/Pictures/frame
 

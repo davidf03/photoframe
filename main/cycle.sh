@@ -6,7 +6,7 @@
 
 while true
 do
-    echo "> cycle: new cycle"
+    echo "> ./main/cycle.sh: new cycle"
 
     python ./main/slideshow.py $SRC_DIR $ACTIVE_DIR $ACTIVE_INTERVAL &
     sleep $SYNC_INTERVAL

@@ -3,7 +3,7 @@
 # Sync photos
 # Note: override abusive sync prevention with parameter $1 = 1
 
-echo "> sync.sh"
+echo "> ./main/sync.sh"
 
 . ./vars/set_vars.sh
 

@@ -2,7 +2,7 @@
 
 # Main
 
-echo "> main"
+echo "> ./main/main.sh"
 
 . ./vars/set_vars.sh
 
