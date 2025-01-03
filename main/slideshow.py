@@ -81,10 +81,12 @@ else:
     Path(active_dir).mkdir(parents=True)
 
 time_next = datetime.now()
+counter = 0
 while True:
     time_next = time_next + timedelta(seconds=active_photo_interval)
     active_photos.insert(0, get_image())
-    print('  photo: ' + '/'.join(''.join(active_photos[0].split('.')[:-1]).split('/')[-2:]))
+    counter += 1
+    print('  photo [' + str(counter) + ']: ' + '/'.join(''.join(active_photos[0].split('.')[:-1]).split('/')[-2:]))
     shutil.copy(active_photos[0], active_dir)
 
     old_photos = [os.path.join(active_dir, p.split('/')[-1]) for p in active_photos[active_photos_max:]]
