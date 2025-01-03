@@ -12,9 +12,7 @@ sync_res=$?
 [[ $sync_res -eq 11 || $sync_res -eq 12 ]] && exit 2
 bash ./main/cycle.sh &
 sleep 5
-scan_interval=$(( ACTIVE_INTERVAL / 4 ))
-scan_interval=$(( scan_interval > 1 ? scan_interval : 1 ))
-feh -R $ACTIVE_INTERVAL -D $scan_interval -Z -F -Y $ACTIVE_DIR
+feh -R $ACTIVE_INTERVAL -D $ACTIVE_INTERVAL -Z -F -Y $ACTIVE_DIR
 
 exit 0
 
