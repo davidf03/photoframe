@@ -11,6 +11,9 @@ import time
 
 print('> ./main/slideshow.py')
 
+CURSOR_UP = "\033[1A"
+CLEAR = "\x1b[2K"
+
 src_dir = sys.argv[1] if len(sys.argv) > 1 else None
 if src_dir is None or not os.path.isdir(sys.argv[2]):
     print('  invalid src dir; image selection paused')
@@ -82,16 +85,23 @@ else:
 
 time_next = datetime.now()
 counter = 0
+history = []
+history_max = 10
+display_max = 40
 while True:
     time_next = time_next + timedelta(seconds=active_photo_interval)
     active_photos.insert(0, get_image())
-    counter += 1
-    print('  photo [' + str(counter) + ']: ' + '/'.join(''.join(active_photos[0].split('.')[:-1]).split('/')[-2:]))
     shutil.copy(active_photos[0], active_dir)
 
     old_photos = [os.path.join(active_dir, p.split('/')[-1]) for p in active_photos[active_photos_max:]]
     for p in old_photos: os.remove(p)
     active_photos = active_photos[:active_photos_max]
+
+    counter += 1
+    for i in range(0, len(history)): print(CURSOR_UP + CLEAR, end="")
+    history.append('  photo [' + str(counter) + ']: ' + '/'.join(''.join(active_photos[0].split('.')[:-1]).split('/')[-2:]))
+    history = history[-history_max:]
+    for _,h in enumerate(history): print(h if len(h) <= (display_max + 12) else h[0:display_max + 9] + '...')
 
     while datetime.now() < time_next:
         time.sleep(1)
