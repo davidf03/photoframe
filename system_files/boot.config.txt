@@ -1,5 +1,2 @@
-dtoverlay=gpio-shutdown
-gpio_pin=3
-active_low=1
-debounce=1500
+dtoverlay=gpio-shutdown,gpio_pin=3,active_low=1,debounce=1500
 
